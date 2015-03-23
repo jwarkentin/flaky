@@ -1,5 +1,5 @@
 # flaky
-Node.js module for generating short, fixed-length, sequential UUIDs ideal for indexing in various tree based structures, with no external dependencies. It creates ids without coordination between servers/instances (even multiple instances on the same machine) that can be used confidently without collisions, while still being sequential (for a single instance) and close together (between instances).
+Node.js module for generating short, fixed-length, sequential UUIDs ideal for indexing in various tree based structures, with no external dependencies. It creates ids without coordination between servers/instances (even multiple instances on the same machine) that can be used confidently without collisions, while still being sequential (for a single instance) and close together (between instances). It is also resistant to potentially large backward time jumps of the system clock (the amount of tolerance depends on how long it takes you to generate 100,000 ids basically).
 
 Note that there will be a jump where the next id will not be sequential every 100,000 ids generated. You can also force the jump sooner by calling `flaky.updateBaseTime()` manually.
 
@@ -27,13 +27,13 @@ npm install flaky
 var flaky = require('flaky');
 
 flaky.base64Id();
-// -> 'UxFXMp1tDQA'
+// -> 'FMR539p7QkA'
 
 flaky.base64Id();
-// -> 'UxFXMp1tDQB'
+// -> 'FMR539p7QkB'
 
 flaky.base64Id();
-// -> 'UxFXMp1tDQC'
+// -> 'FMR539p7QkC'
 ```
 
 You can also get a raw [Buffer](https://nodejs.org/api/buffer.html) object which you can encode however you want:
@@ -41,7 +41,7 @@ You can also get a raw [Buffer](https://nodejs.org/api/buffer.html) object which
 var flaky = require('flaky');
 
 flaky.bufferId();
-// -> <Buffer 14 31 05 17 0c 29 35 2d 03 10 02>
+// -> <Buffer 05 0c 11 3a 0f 1c 37 2b 10 18 03>
 ```
 
 I'm happy to merge or implement new encoders as needed. I just don't know what will be useful to people.
@@ -51,8 +51,10 @@ I'm happy to merge or implement new encoders as needed. I just don't know what w
 ### flaky#bufferId()
 See above example
 
-### flaky#base64Id()
+### flaky#base64Id([charSet])
 See above example
+
+You can optionally specify what characters to use to encode. Options are `base64`, `base64URL` (default) or if you pass a string with a 64 character length, it will be used instead.
 
 ### flaky#updateBaseTime()
 See note in description at the top

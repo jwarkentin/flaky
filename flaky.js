@@ -1,11 +1,9 @@
 // Based on information about performance from:
 // http://blog.mikemccandless.com/2014/05/choosing-fast-unique-identifier-uuid.html
 
-var methods = {
+var charSets = {
   base64: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",
-  base64URL: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_",
-  base64URLNaturalSort: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_",
-  base64URLASCIISort: "-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz"
+  base64URL: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
 };
 
 var crypto = require('crypto'),
@@ -56,8 +54,11 @@ function padLeft(str, length, val) {
 }
 
 function updateBaseTime() {
+  // Note that we pad to 44 bits because when the binary string gets chunked we need it to divide evenly by 6 with the
+  // LSB fully packed for proper base64 encoding.
+
   baseTime = Date.now();
-  baseTimeBits = padLeft(baseTime.toString(2), 42, '0');
+  baseTimeBits = padLeft(baseTime.toString(2), 44, '0');
   genCount = 0;
 }
 
@@ -78,7 +79,8 @@ function genBufferId() {
 
   if(seq === seqSize || genCount === maxGenPerTime) {
     baseTime += baseTimeStep;
-    baseTimeBits = padLeft(baseTime.toString(2), 42, '0');
+    // See note in `updateBaseTime()` about 44 bit length
+    baseTimeBits = padLeft(baseTime.toString(2), 44, '0');
     seq = 0;
   }
 
@@ -104,12 +106,15 @@ module.exports = {
   updateBaseTime: updateBaseTime,
   bufferId: genBufferId,
 
-  base64Id: function base64Id() {
+  base64Id: function base64Id(charSet) {
     var buffer = genBufferId();
 
-    var encoded = '';
+    console.log(buffer);
+
+    var encoded = '',
+        chars = charSet.length == 64 ? charSet : charSets[charSet || 'base64URL'];
     for(var j = 0; j < buffer.length; ++j) {
-      encoded += methods.base64URL[buffer[j]];
+      encoded += chars[buffer[j]];
     }
 
     return encoded;
