@@ -1,0 +1,21 @@
+{
+  "name": "flaky",
+  "version": "0.0.1",
+  "description": "Module for generating short, fixed-length, sequential UUIDs ideal for indexing in a various tree based structures",
+  "main": "flaky.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jwarkentin/flaky.git"
+  },
+  "keywords": [
+    "uuid",
+    "flake",
+    "flakeid"
+  ],
+  "author": "Justin Warkentin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jwarkentin/flaky/issues"
+  },
+  "homepage": "https://github.com/jwarkentin/flaky"
+}
