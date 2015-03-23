@@ -1,5 +1,5 @@
 # flaky
-Node.js module for generating short, fixed-length, sequential UUIDs ideal for indexing in a various tree based structures, with no external dependencies.
+Node.js module for generating short, fixed-length, sequential UUIDs ideal for indexing in various tree based structures, with no external dependencies.
 
 ## Motiviation
 I wanted a UUID generator that was designed for use with indexing to provide the best performance for indexing and lookups, while also being efficient with space (i.e. short ids). This is designed based on my understanding of how elasticsearch BlockTree indexing works as explained by [Mike McCandless](http://blog.mikemccandless.com/2014/05/choosing-fast-unique-identifier-uuid.html). It is loosely based on the concept of flake ids.
