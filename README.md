@@ -7,6 +7,8 @@ I wanted a UUID generator that was designed for use with indexing to provide the
 To learn more about flake id see:
 * http://www.boundary.com/blog/2012/01/flake-a-decentralized-k-ordered-unique-id-generator-in-erlang/
 * There are some noteworthy comments on HN as well: https://news.ycombinator.com/item?id=3461557
+* http://engineering.custommade.com/simpleflake-distributed-id-generation-for-the-lazy/
+* "Use auto id or pick a good id" section at the bottom of the page: https://www.elastic.co/blog/performance-considerations-elasticsearch-indexing/
 
 More specific to elasticsearch, see:
 * elasticsearch [issue 5941](https://github.com/elastic/elasticsearch/issues/5941)
@@ -39,3 +41,5 @@ var flaky = require('flaky');
 flaky.bufferId();
 // -> <Buffer 14 31 05 17 0c 29 35 2d 03 10 02>
 ```
+
+I'm happy to merge or implement new encoders as needed. I just don't know what will be useful to people.
