@@ -109,10 +109,8 @@ module.exports = {
   base64Id: function base64Id(charSet) {
     var buffer = genBufferId();
 
-    console.log(buffer);
-
     var encoded = '',
-        chars = charSet.length == 64 ? charSet : charSets[charSet || 'base64URL'];
+        chars =  charSet && charSet.length == 64 ? charSet : charSets[charSet || 'base64URL'];
     for(var j = 0; j < buffer.length; ++j) {
       encoded += chars[buffer[j]];
     }
