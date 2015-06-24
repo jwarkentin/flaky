@@ -39,6 +39,7 @@ nodeIdBits = (parseInt(nodeIdBits, 2) ^ (Math.random() * (nodeIdSize + 1) | 0)).
 
 var baseTime, baseTimeBits,
     baseTimeStep = Math.random() * (10 - 1) + 1 | 0,
+    totalSteps = 0,
     seq = 0,
     seqSize = 1 << 8,
     maxGenPerTime = 100000,
@@ -58,6 +59,7 @@ function updateBaseTime() {
   // LSB fully packed for proper base64 encoding.
 
   baseTime = Date.now();
+  baseTime += totalSteps * baseTimeStep;
   baseTimeBits = padLeft(baseTime.toString(2), 44, '0');
   genCount = 0;
 }
@@ -79,6 +81,8 @@ function genBufferId() {
 
   if(seq === seqSize || genCount === maxGenPerTime) {
     baseTime += baseTimeStep;
+    totalSteps++;
+
     // See note in `updateBaseTime()` about 44 bit length
     baseTimeBits = padLeft(baseTime.toString(2), 44, '0');
     seq = 0;

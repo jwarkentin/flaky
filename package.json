@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/jwarkentin/flaky/issues"
   },
-  "homepage": "https://github.com/jwarkentin/flaky"
+  "homepage": "https://github.com/jwarkentin/flaky",
+  "devDependencies": {
+    "hashtable": "^1.0.3"
+  }
 }
