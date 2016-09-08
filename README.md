@@ -1,18 +1,20 @@
 # flaky
-Node.js module for generating short, fixed-length, sequential UUIDs ideal for indexing in various tree based structures, with no external dependencies. It creates ids without coordination between servers/instances (even multiple instances on the same machine) that can be used confidently without collisions, while still being sequential (for a single instance) and close together (between instances). It is also resistant to potentially large backward time jumps of the system clock (the amount of tolerance depends on how long it takes you to generate 100,000 ids basically).
 
-Note that there will be a jump where the next id will not be sequential every 100,000 ids generated. You can also force the jump sooner by calling `flaky.updateBaseTime()` manually.
+Node.js module for generating short, fixed-length, sequential UUIDs ideal for indexing in various tree based structures. It creates IDs without coordination between servers/instances (even multiple instances on the same machine) that can be used confidently without collisions, while still being mostly sequential and always ascending. It is also resistant to potentially large backward time jumps of the system clock (the amount of tolerance depends on how long it takes you to generate 100,000 ids basically).
+
+All Flaky IDs are created with a full 64 bits of data. Flaky also provides a lot of flexibility in terms of what base encoding you want to use and what character set to encode with. By default it will do base 64 encoding and use the standard character set.
 
 ## Motiviation
-I wanted a UUID generator that was designed for use with indexing to provide the best performance for indexing and lookups, while also being efficient with space (i.e. short ids). This is designed based on my understanding of how elasticsearch BlockTree indexing works as explained by [Mike McCandless](http://blog.mikemccandless.com/2014/05/choosing-fast-unique-identifier-uuid.html). It is loosely based on the concept of flake ids.
 
-To learn more about flake id see:
+I wanted a UUID generator that was designed for use with common database indexing techniques to provide the best performance for indexing and lookups, while also being efficient with space (i.e. short IDs). This is designed based on my understanding of how elasticsearch BlockTree indexing works as explained by [Mike McCandless](http://blog.mikemccandless.com/2014/05/choosing-fast-unique-identifier-uuid.html). It is loosely based on the concept of flake IDs. In my own benchmarks these IDs have proven to be faster and more efficient than the standard IDs assigned by Elasticsearch. It should work well with MySQL's InnoDB index format as well (though I haven't tested it).
+
+To learn more about flake IDs see:
 * http://www.boundary.com/blog/2012/01/flake-a-decentralized-k-ordered-unique-id-generator-in-erlang/
 * There are some noteworthy comments on HN as well: https://news.ycombinator.com/item?id=3461557
 * http://engineering.custommade.com/simpleflake-distributed-id-generation-for-the-lazy/
 * "Use auto id or pick a good id" section at the bottom of the page: https://www.elastic.co/blog/performance-considerations-elasticsearch-indexing/
 
-More specific to elasticsearch, see:
+More specific to Elasticsearch, see:
 * elasticsearch [issue 5941](https://github.com/elastic/elasticsearch/issues/5941)
 * elasticsearch [implementation](https://github.com/elastic/elasticsearch/blob/9c1ac95ba8e593c90b4681f2a554b12ff677cf89/src/main/java/org/elasticsearch/common/TimeBasedUUIDGenerator.java)
 
@@ -26,35 +28,32 @@ npm install flaky
 ```js
 var flaky = require('flaky');
 
-flaky.base64Id();
-// -> 'FMR539p7QkA'
+flaky.id();
+// -> '5n29BnZXhcR'
 
-flaky.base64Id();
-// -> 'FMR539p7QkB'
+flaky.id();
+// -> '5n29BnZXhcS'
 
-flaky.base64Id();
-// -> 'FMR539p7QkC'
+flaky.id();
+// -> '5n29BnZXhcT'
 ```
-
-You can also get a raw [Buffer](https://nodejs.org/api/buffer.html) object which you can encode however you want:
-```js
-var flaky = require('flaky');
-
-flaky.bufferId();
-// -> <Buffer 05 0c 11 3a 0f 1c 37 2b 10 18 03>
-```
-
-I'm happy to merge or implement new encoders as needed. I just don't know what will be useful to people.
 
 ## API
 
-### flaky#bufferId()
-See above example
+### flaky#id([base, [charset]])
 
-### flaky#base64Id([charSet])
-See above example
+- `base`
+  With the default character set you can pick any number between 2-64 for encoding. The higher the number the shorter the ID.
+- `charset`
+  Currently you can specify any provided charset by name (`base64` or `base64URL` for now) or pass a string of unique characters.
 
-You can optionally specify what characters to use to encode. Options are `base64`, `base64URL` (default) or if you pass a string with a 64 character length, it will be used instead.
+```js
+// Any number within the provided charset length
+flaky.id(48)
 
-### flaky#updateBaseTime()
-See note in description at the top
+// `null` will skip arguments
+flaky.id(null, 'base64URL')
+
+// Pass your own set of characters. Useful if you want a higher base encoding.
+flaky.id(85, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()-_=+/?<>,.;:|')
+```

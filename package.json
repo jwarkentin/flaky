@@ -1,7 +1,7 @@
 {
   "name": "flaky",
   "version": "0.0.5",
-  "description": "Module for generating short, fixed-length, sequential UUIDs ideal for indexing in a various tree based structures",
+  "description": "Module for generating short, fixed-length, sequential UUIDs ideal for indexing in various tree based structures",
   "main": "flaky.js",
   "repository": {
     "type": "git",
@@ -19,6 +19,9 @@
   },
   "homepage": "https://github.com/jwarkentin/flaky",
   "devDependencies": {
-    "hashtable": "^1.0.3"
+    "hashtable": "^2.0.2"
+  },
+  "dependencies": {
+    "decimal.js": "^6.0.0"
   }
 }
