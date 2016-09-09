@@ -10,7 +10,7 @@ for (let i = 0; i < testnum; ++i) {
     console.log("Found duplicate key '" + id + "' at i = " + i + " - Original found at i = " + ids.get(id))
     process.exit()
   } else {
-    console.log(i, id)
+    // console.log(i, id)
     ids.put(id, i)
   }
 }

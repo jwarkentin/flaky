@@ -53,14 +53,14 @@ function zeroPadLeft(str, length) {
 
 function toBase(binStr, base, charset) {
   if (base > charset.length || base < 2) {
-    throw new Error(`Invalid base '${base}'`)
+    throw new RangeError(`Invalid base '${base}'`)
   }
 
   let num = new Decimal(`0b${binStr}`)
   let encoded = ''
   while (num > 0) {
     let charpos
-    if (num < Number.MAX_SAFE_INTEGER) {
+    if (num <= Number.MAX_SAFE_INTEGER) {
       let newnum = Math.floor(num / base)
       charpos = num - (base * newnum)
       num = newnum
