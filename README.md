@@ -18,42 +18,7 @@ More specific to Elasticsearch, see:
 * elasticsearch [issue 5941](https://github.com/elastic/elasticsearch/issues/5941)
 * elasticsearch [implementation](https://github.com/elastic/elasticsearch/blob/9c1ac95ba8e593c90b4681f2a554b12ff677cf89/src/main/java/org/elasticsearch/common/TimeBasedUUIDGenerator.java)
 
-## Installation
-```
-npm install flaky
-```
-
-## Usage
-
-```js
-var flaky = require('flaky');
-
-flaky.id();
-// -> '5n29BnZXhcR'
-
-flaky.id();
-// -> '5n29BnZXhcS'
-
-flaky.id();
-// -> '5n29BnZXhcT'
-```
-
 ## API
 
-### flaky#id([base, [charset]])
-
-- `base`
-  With the default character set you can pick any number between 2-64 for encoding. The higher the number the shorter the ID.
-- `charset`
-  Currently you can specify any provided charset by name (`base64` or `base64URL` for now) or pass a string of unique characters.
-
-```js
-// Any number within the provided charset length
-flaky.id(48)
-
-// `null` will skip arguments
-flaky.id(null, 'base64URL')
-
-// Pass your own set of characters. Useful if you want a higher base encoding.
-flaky.id(85, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()-_=+/?<>,.;:|')
-```
+* [JavaScript](doc/JavaScript.php)
+* [PHP](doc/PHP.md)
