@@ -1,6 +1,8 @@
 <?php
 
-require_once('../flaky.php');
+require_once('../src/Flaky/Flaky.php');
+
+use Flaky\Flaky;
 
 $testnum = 5000000;
 $ids = array();

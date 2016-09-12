@@ -1,7 +1,7 @@
 let flaky = require('../flaky'),
     HashTable = require('hashtable')
 
-let testnum = 50000000
+let testnum = 5000000
 let ids = new HashTable()
 
 for (let i = 0; i < testnum; ++i) {

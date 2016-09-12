@@ -1,5 +1,7 @@
 <?php
 
+namespace Flaky;
+
 class Flaky {
     protected static $symbols = array(
       "base64" => "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+/",

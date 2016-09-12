@@ -1,0 +1,21 @@
+{
+  "name": "jwarkentin/flaky",
+  "type": "library",
+  "license": "MIT",
+  "description": "Module for generating short, fixed-length, sequential UUIDs ideal for indexing in various tree based structures",
+  "keywords": [
+    "uuid",
+    "flake",
+    "flakeid"
+  ],
+  "authors": [
+    {
+      "name": "Justin Warkentin"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Flaky\\": "src/"
+    }
+  }
+}
