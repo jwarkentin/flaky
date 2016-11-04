@@ -4,7 +4,7 @@ Node.js module for generating short, fixed-length, sequential UUIDs ideal for in
 
 All Flaky IDs are created with a full 64 bits of data. Flaky also provides a lot of flexibility in terms of what base encoding you want to use and what character set to encode with. By default it will do base 64 encoding and use the standard character set.
 
-## Motiviation
+## Motivation
 
 I wanted a UUID generator that was designed for use with common database indexing techniques to provide the best performance for indexing and lookups, while also being efficient with space (i.e. short IDs). This is designed based on my understanding of how elasticsearch BlockTree indexing works as explained by [Mike McCandless](http://blog.mikemccandless.com/2014/05/choosing-fast-unique-identifier-uuid.html). It is loosely based on the concept of flake IDs. In my own benchmarks these IDs have proven to be faster and more efficient than the standard IDs assigned by Elasticsearch. It should work well with MySQL's InnoDB index format as well (though I haven't tested it).
 
@@ -20,5 +20,5 @@ More specific to Elasticsearch, see:
 
 ## API
 
-* [JavaScript](doc/JavaScript.php)
+* [JavaScript](doc/JavaScript.md)
 * [PHP](doc/PHP.md)
