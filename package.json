@@ -1,6 +1,6 @@
 {
   "name": "flaky",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Module for generating short, fixed-length, sequential UUIDs ideal for indexing in various tree based structures",
   "keywords": [
     "uuid",
