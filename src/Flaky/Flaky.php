@@ -1,6 +1,6 @@
 <?php
 
-namespace Flaky;
+namespace Flaky\Flaky;
 
 class Flaky {
     protected static $symbols = array(
@@ -40,10 +40,10 @@ class Flaky {
 
         $num = gmp_init('0b' . $binStr);
         $encoded = '';
-        while ($num > 0) {
+        while (gmp_intval($num) > 0) {
             $divmod = gmp_div_qr($num, $base);
             $num = $divmod[0];
-            $encoded = substr($symbols, (int)$divmod[1], 1) . $encoded;
+            $encoded = substr($symbols, gmp_intval($divmod[1]), 1) . $encoded;
         }
 
         return $encoded;
