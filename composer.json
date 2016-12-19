@@ -13,6 +13,9 @@
       "name": "Justin Warkentin"
     }
   ],
+  "require": {
+    "ext-gmp": "*"
+  },
   "autoload": {
     "psr-4": {
       "Flaky\\": "src/"
