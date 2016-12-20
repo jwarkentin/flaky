@@ -1,6 +1,6 @@
 <?php
 
-namespace Flaky\Flaky;
+namespace Flaky;
 
 class Flaky {
     protected static $symbols = array(
